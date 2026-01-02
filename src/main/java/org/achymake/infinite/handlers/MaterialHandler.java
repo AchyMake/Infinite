@@ -27,16 +27,20 @@ public class MaterialHandler {
             var section = getConfig().getConfigurationSection("fishing." + itemStack.getType().name().toUpperCase() + ".item");
             if (section != null) {
                 var infiniteItemStack = getInstance().getMaterialHandler().getItemStack(section.getString("type"), section.getInt("amount"));
-                var itemMeta = infiniteItemStack.getItemMeta();
-                itemMeta.setItemName(getInstance().getMessage().addColor(section.getString("name")));
-                if (section.isList("lore")) {
-                    var lore = new ArrayList<String>();
-                    section.getStringList("lore").forEach(string -> lore.add(getInstance().getMessage().addColor(string)));
-                    itemMeta.setLore(lore);
-                }
-                itemMeta.getPersistentDataContainer().set(getInstance().getNamespacedKey("infinite"), PersistentDataType.BOOLEAN, true);
-                infiniteItemStack.setItemMeta(itemMeta);
-                return infiniteItemStack;
+                if (infiniteItemStack != null) {
+                    var itemMeta = infiniteItemStack.getItemMeta();
+                    if (itemMeta != null) {
+                        itemMeta.setItemName(getInstance().getMessage().addColor(section.getString("name")));
+                        if (section.isList("lore")) {
+                            var lore = new ArrayList<String>();
+                            section.getStringList("lore").forEach(string -> lore.add(getInstance().getMessage().addColor(string)));
+                            itemMeta.setLore(lore);
+                        }
+                        itemMeta.getPersistentDataContainer().set(getInstance().getNamespacedKey("infinite"), PersistentDataType.BOOLEAN, true);
+                        infiniteItemStack.setItemMeta(itemMeta);
+                        return infiniteItemStack;
+                    } else return null;
+                } else return null;
             } else return null;
         } else return null;
     }

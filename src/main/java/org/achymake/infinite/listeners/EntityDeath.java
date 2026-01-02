@@ -35,8 +35,10 @@ public class EntityDeath implements Listener {
     }
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDeath(EntityDeathEvent event) {
+        var entity = event.getEntity();
         var entityType = event.getEntityType();
         if (!getEntityHandler().isEnable(entityType))return;
+        if (entity.getKiller() == null)return;
         var chance = getEntityHandler().getChance(entityType);
         if (!getRandomHandler().isTrue(chance))return;
         var itemStack = getEntityHandler().getInfiniteFood(entityType);
@@ -48,7 +50,7 @@ public class EntityDeath implements Listener {
             var offsetX = getConfig().getDouble("particle.offsetX");
             var offsetY = getConfig().getDouble("particle.offsetY");
             var offsetZ = getConfig().getDouble("particle.offsetZ");
-            var location = event.getEntity().getLocation();
+            var location = entity.getLocation();
             getWorldHandler().spawnParticle(location, particleType, count, offsetX, offsetY, offsetZ);
         }
         if (getConfig().getBoolean("sound.enable")) {
@@ -56,7 +58,7 @@ public class EntityDeath implements Listener {
             if (soundType == null)return;
             var volume = getConfig().getDouble("sound.volume");
             var pitch = getConfig().getDouble("sound.pitch");
-            getWorldHandler().playSound(event.getEntity(), soundType, volume, pitch);
+            getWorldHandler().playSound(entity, soundType, volume, pitch);
         }
         event.getDrops().add(itemStack);
     }
