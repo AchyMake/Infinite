@@ -1,0 +1,21 @@
+name: Infinite
+version: '${project.version}'
+main: org.achymake.infinite.Infinite
+api-version: '1.21'
+prefix: '${project.name}'
+load: STARTUP
+author: AchyMake
+description: '${project.description}'
+website: '${project.url}'
+commands:
+  infinite:
+    description: infinite command
+    permission: infinite.command.infinite
+    permission-message: You are do not have the permission to execute the command
+permissions:
+  infinite.command.infinite:
+    description: infinite command
+    default: op
+  infinite.event.join.update:
+    description: gets update on join
+    default: op
