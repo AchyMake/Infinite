@@ -16,73 +16,28 @@ fishing:
   COD:
     enable: true
     chance: 0.02
-    item:
-      type: cooked_cod
-      name: "&dInfinite Cooked Cod"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
   SALMON:
     enable: true
     chance: 0.02
-    item:
-      type: cooked_salmon
-      name: "&dInfinite Cooked Salmon"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
 entity-death:
-  PIG:
-    enable: true
-    chance: 0.02
-    item:
-      type: cooked_porkchop
-      name: "&dInfinite Cooked Porkchop"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
-  COW:
-    enable: true
-    chance: 0.02
-    item:
-      type: cooked_beef
-      name: "&dInfinite Steak"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
-  SHEEP:
-    enable: true
-    chance: 0.02
-    item:
-      type: cooked_mutton
-      name: "&dInfinite Cooked Mutton"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
   CHICKEN:
     enable: true
     chance: 0.02
-    item:
-      type: cooked_chicken
-      name: "&dInfinite Cooked Chicken"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
   COD:
     enable: true
     chance: 0.02
-    item:
-      type: cooked_cod
-      name: "&dInfinite Cooked Cod"
-      lore:
-        - "&9Infinite Food"
-      amount: 1
+  COW:
+    enable: true
+    chance: 0.02
+  PIG:
+    enable: true
+    chance: 0.02
+  RABBIT:
+    enable: true
+    chance: 0.02
+  SHEEP:
+    enable: true
+    chance: 0.02
   SALMON:
     enable: true
     chance: 0.02
-    item:
-      type: cooked_salmon
-      name: "&dInfinite Cooked Salmon"
-      lore:
-        - "&9Infinite Food"
-      amount: 1

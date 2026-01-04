@@ -41,7 +41,7 @@ public class PlayerFish implements Listener {
             if (!getMaterialHandler().isEnable(itemStackCaught))return;
             var chance = getMaterialHandler().getChance(itemStackCaught);
             if (!getRandomHandler().isTrue(chance))return;
-            var infiniteFood = getMaterialHandler().getInfiniteFood(itemStackCaught);
+            var infiniteFood = getMaterialHandler().getInfiniteFood(itemStackCaught.getType());
             if (infiniteFood == null)return;
             if (getConfig().getBoolean("particle.enable")) {
                 var particleType = getConfig().getString("particle.type");
