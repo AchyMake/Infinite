@@ -12,32 +12,34 @@ particle:
   offsetZ: 0.6
   count: 50
 cooldown: 40
+luck-of-the-sea-increase-chance: true
+looting-increase-chance: true
 fishing:
   COD:
     enable: true
-    chance: 0.02
+    chance: 0.002
   SALMON:
     enable: true
-    chance: 0.02
+    chance: 0.002
 entity-death:
   CHICKEN:
     enable: true
-    chance: 0.02
+    chance: 0.002
   COD:
     enable: true
-    chance: 0.02
+    chance: 0.002
   COW:
     enable: true
-    chance: 0.02
+    chance: 0.002
   PIG:
     enable: true
-    chance: 0.02
+    chance: 0.002
   RABBIT:
     enable: true
-    chance: 0.02
+    chance: 0.002
   SHEEP:
     enable: true
-    chance: 0.02
+    chance: 0.002
   SALMON:
     enable: true
-    chance: 0.02
+    chance: 0.002

@@ -40,7 +40,14 @@ public class PlayerFish implements Listener {
             var itemStackCaught = item.getItemStack();
             if (!getMaterialHandler().isEnable(itemStackCaught))return;
             var chance = getMaterialHandler().getChance(itemStackCaught);
-            if (!getRandomHandler().isTrue(chance))return;
+            if (getConfig().getBoolean("luck-of-the-sea-increase-chance")) {
+                var heldItem = event.getPlayer().getInventory().getItemInMainHand();
+                var luckOfTheSea = getMaterialHandler().getEnchantment("luck_of_the_sea");
+                if (heldItem.containsEnchantment(luckOfTheSea)) {
+                    var level = heldItem.getEnchantmentLevel(luckOfTheSea);
+                    if (!getRandomHandler().isTrue(chance * level))return;
+                } else if (!getRandomHandler().isTrue(chance))return;
+            } else if (!getRandomHandler().isTrue(chance))return;
             var infiniteFood = getMaterialHandler().getInfiniteFood(itemStackCaught.getType());
             if (infiniteFood == null)return;
             if (getConfig().getBoolean("particle.enable")) {

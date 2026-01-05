@@ -2,6 +2,7 @@ package org.achymake.infinite.listeners;
 
 import org.achymake.infinite.Infinite;
 import org.achymake.infinite.handlers.EntityHandler;
+import org.achymake.infinite.handlers.MaterialHandler;
 import org.achymake.infinite.handlers.RandomHandler;
 import org.achymake.infinite.handlers.WorldHandler;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -20,6 +21,9 @@ public class EntityDeath implements Listener {
     }
     private EntityHandler getEntityHandler() {
         return getInstance().getEntityHandler();
+    }
+    private MaterialHandler getMaterialHandler() {
+        return getInstance().getMaterialHandler();
     }
     private RandomHandler getRandomHandler() {
         return getInstance().getRandomHandler();
@@ -40,7 +44,14 @@ public class EntityDeath implements Listener {
         if (!getEntityHandler().isEnable(entityType))return;
         if (entity.getKiller() == null)return;
         var chance = getEntityHandler().getChance(entityType);
-        if (!getRandomHandler().isTrue(chance))return;
+        if (getConfig().getBoolean("looting-increase-chance")) {
+            var heldItem = entity.getKiller().getInventory().getItemInMainHand();
+            var looting = getMaterialHandler().getEnchantment("looting");
+            if (heldItem.containsEnchantment(looting)) {
+                var level = heldItem.getEnchantmentLevel(looting);
+                if (!getRandomHandler().isTrue(chance * level))return;
+            } else if (!getRandomHandler().isTrue(chance))return;
+        } else if (!getRandomHandler().isTrue(chance))return;
         var itemStack = getEntityHandler().getInfiniteFood(entityType);
         if (itemStack == null)return;
         if (getConfig().getBoolean("particle.enable")) {

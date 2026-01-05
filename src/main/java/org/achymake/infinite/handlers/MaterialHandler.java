@@ -4,6 +4,7 @@ import org.achymake.infinite.Infinite;
 import org.achymake.infinite.data.Message;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -30,9 +31,42 @@ public class MaterialHandler {
     public double getChance(ItemStack itemStack) {
         return getConfig().getDouble("fishing." + itemStack.getType().name().toUpperCase() + ".chance");
     }
+    public PersistentDataContainer getData(ItemStack itemStack) {
+        var itemMeta = itemStack.getItemMeta();
+        if (itemMeta != null) {
+            return itemStack.getItemMeta().getPersistentDataContainer();
+        } else return null;
+    }
+    public Material get(String materialName) {
+        return Material.getMaterial(materialName.toUpperCase());
+    }
+    public ItemStack getItemStack(String materialName, int amount) {
+        var material = get(materialName);
+        if (material != null) {
+            return new ItemStack(material, amount);
+        } else return null;
+    }
     public void giveItemStack(Player player, ItemStack itemStack) {
         var rest = player.getInventory().addItem(itemStack);
         rest.values().forEach(itemStacks -> getWorldHandler().spawnItem(player.getLocation(), itemStacks));
+    }
+    public Enchantment getEnchantment(String enchantmentName) {
+        return Enchantment.getByName(enchantmentName.toUpperCase());
+    }
+    public boolean isEnchantment(String enchantmentName) {
+        return getEnchantment(enchantmentName) != null;
+    }
+    public boolean hasEnchantment(ItemStack itemStack, String enchantmentName) {
+        if (isEnchantment(enchantmentName) && itemStack != null) {
+            return itemStack.getItemMeta().hasEnchant(getEnchantment(enchantmentName));
+        } else return false;
+    }
+    public ItemStack copy(ItemStack itemStack, int amount) {
+        if (itemStack != null) {
+            var copy = new ItemStack(itemStack);
+            copy.setAmount(amount);
+            return copy;
+        } else return null;
     }
     public ItemStack getInfiniteFood(Material material) {
         switch (material) {
@@ -123,28 +157,6 @@ public class MaterialHandler {
         itemMeta.getPersistentDataContainer().set(getInstance().getNamespacedKey("infinite"), PersistentDataType.BOOLEAN, true);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
-    }
-    public Material get(String materialName) {
-        return Material.getMaterial(materialName.toUpperCase());
-    }
-    public ItemStack getItemStack(String materialName, int amount) {
-        var material = get(materialName);
-        if (material != null) {
-            return new ItemStack(material, amount);
-        } else return null;
-    }
-    public ItemStack copy(ItemStack itemStack, int amount) {
-        if (itemStack != null) {
-            var copy = new ItemStack(itemStack);
-            copy.setAmount(amount);
-            return copy;
-        } else return null;
-    }
-    public PersistentDataContainer getData(ItemStack itemStack) {
-        var itemMeta = itemStack.getItemMeta();
-        if (itemMeta != null) {
-            return itemStack.getItemMeta().getPersistentDataContainer();
-        } else return null;
     }
     public boolean isInfinite(ItemStack itemStack) {
         var data = getData(itemStack);
