@@ -10,7 +10,7 @@ particle:
   offsetX: 0.6
   offsetY: 0.7
   offsetZ: 0.6
-  count: 50
+  count: 75
 cooldown: 40
 luck-of-the-sea-increase-chance: true
 looting-increase-chance: true
@@ -37,9 +37,9 @@ entity-death:
   RABBIT:
     enable: true
     chance: 0.002
-  SHEEP:
+  SALMON:
     enable: true
     chance: 0.002
-  SALMON:
+  SHEEP:
     enable: true
     chance: 0.002
